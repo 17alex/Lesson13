@@ -10,8 +10,10 @@ import UIKit
 final class ViewController: UIViewController {
 
     private lazy var startButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
+        button.setTitleColor(.systemBlue, for: .normal)
         button.setTitle("Start", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         button.addTarget(self, action: #selector(start), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -24,78 +26,74 @@ final class ViewController: UIViewController {
         return imageView
     }()
     
-    private var leafViews: [LeafView] = []
+    private var leafs: [LeafView] = []
+    private var apples: [AppleView] = []
+    private let source = Source()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         setup()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setup()
-    }
-    
+       
     @objc private func start() {
-        setupTree()
+        hideStartButton()
+        leafs.forEach { $0.removeFromSuperview() }
+        apples.forEach { $0.removeFromSuperview() }
+        treeImageView.removeFromSuperview()
+        
+        showTree()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { self.showLeaf() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { self.showApple() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { self.paintApple() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) { self.showStartButton() }
     }
-    
     
     private func setup() {
         view.addSubview(startButton)
         NSLayoutConstraint.activate([
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -180),
         
         ])
     }
-
-    private func setupTree() {
-        startButton.isHidden = true
-        
-        view.addSubview(treeImageView)
-        treeImageView.frame.size = .init(width: view.bounds.width * 0.7, height: view.bounds.width * 0.7)
-        treeImageView.center.x = view.bounds.midX
-        treeImageView.center.y = view.bounds.midY + 120
-        treeImageView.alpha = 0.0
-        
-        UIView.animate(withDuration: 2.0) {
-            self.treeImageView.alpha = 1.0
-        } completion: { (_) in
-            self.setupLeaf()
-        }
-
-       
+    
+    private func showStartButton() {
+        self.startButton.isHidden = false
     }
     
-    private func setupLeaf() {
-        let hv = treeImageView.bounds.height
-        let dd: [LeafView: CGFloat] = [
-            LeafView(frame: .init(x: hv * 0.01, y: hv * 0.65, width: 5, height: 10)) : 4.0,
-            LeafView(frame: .init(x: hv * 0.005, y: hv * 0.42, width: 5, height: 10)) : 4.5,
-            LeafView(frame: .init(x: hv * 0.25, y: hv * 0.08, width: 5, height: 10)) : 5.5,
-            LeafView(frame: .init(x: hv * 0.49, y: hv * 0.01, width: 5, height: 10)) : -0.5,
-            LeafView(frame: .init(x: hv * 0.67, y: hv * 0.06, width: 5, height: 10)) : 0.0,
-            LeafView(frame: .init(x: hv * 0.9, y: hv * 0.12, width: 5, height: 10)) : 0.5,
-        ]
-        dd.forEach {
-            $0.0.transform = CGAffineTransform(rotationAngle: $0.1)
-            treeImageView.addSubview($0.0)
-            
-        }
-        
-        
+    private func hideStartButton() {
+        self.startButton.isHidden = true
     }
-
+    
+    private func showTree() {
+        
+        
+        view.addSubview(treeImageView)
+        let heightTree = min(view.bounds.width, view.bounds.height) * 0.7
+        treeImageView.frame.size = .init(width: heightTree, height: heightTree)
+        treeImageView.center.x = view.bounds.midX
+        treeImageView.center.y = view.bounds.midY + 80
+        treeImageView.alpha = 0.0
+        UIView.animate(withDuration: 1.0) {
+            self.treeImageView.alpha = 1.0
+        }
+    }
+    
+    private func showLeaf() {
+        leafs = source.getLeafs(for: treeImageView.bounds.height)
+        leafs.forEach { treeImageView.addSubview($0) }
+    }
+    
+    private func showApple() {
+        apples = source.getApples(for: treeImageView.bounds.height)
+        apples.forEach { treeImageView.addSubview($0) }
+    }
+    
+    private func paintApple() {
+        apples.forEach { $0.changeColor() }
+    }
 }
 
 
-//let treeOpacityAnimation = CABasicAnimation(keyPath: "opacity")
-//treeOpacityAnimation.fromValue = 0.0
-//treeOpacityAnimation.toValue = 1.0
-//treeOpacityAnimation.duration = 2.0
-//treeImageView.layer.add(treeOpacityAnimation, forKey: "treeOpacityAnimation")
-//treeImageView.alpha = 1.0

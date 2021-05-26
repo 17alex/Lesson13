@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA106596265E2D2A005DDE11 /* AppleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA106595265E2D2A005DDE11 /* AppleView.swift */; };
+		FA106599265E5196005DDE11 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA106598265E5196005DDE11 /* Source.swift */; };
 		FA6B2819265BB423005EEC87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B2818265BB423005EEC87 /* AppDelegate.swift */; };
 		FA6B281D265BB423005EEC87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B281C265BB423005EEC87 /* ViewController.swift */; };
 		FA6B2822265BB428005EEC87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA6B2821265BB428005EEC87 /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA106595265E2D2A005DDE11 /* AppleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleView.swift; sourceTree = "<group>"; };
+		FA106598265E5196005DDE11 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		FA6B2815265BB423005EEC87 /* Lesson13.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson13.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6B2818265BB423005EEC87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA6B281C265BB423005EEC87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,7 +60,9 @@
 			children = (
 				FA6B2818265BB423005EEC87 /* AppDelegate.swift */,
 				FA6B281C265BB423005EEC87 /* ViewController.swift */,
+				FA106598265E5196005DDE11 /* Source.swift */,
 				FA6B2831265BC11F005EEC87 /* LeafView.swift */,
+				FA106595265E2D2A005DDE11 /* AppleView.swift */,
 				FA6B2821265BB428005EEC87 /* Assets.xcassets */,
 				FA6B2823265BB428005EEC87 /* LaunchScreen.storyboard */,
 				FA6B2826265BB428005EEC87 /* Info.plist */,
@@ -136,6 +142,8 @@
 				FA6B2832265BC11F005EEC87 /* LeafView.swift in Sources */,
 				FA6B281D265BB423005EEC87 /* ViewController.swift in Sources */,
 				FA6B2819265BB423005EEC87 /* AppDelegate.swift in Sources */,
+				FA106599265E5196005DDE11 /* Source.swift in Sources */,
+				FA106596265E2D2A005DDE11 /* AppleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
