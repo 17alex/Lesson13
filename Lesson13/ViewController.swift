@@ -9,6 +9,8 @@ import UIKit
 
 final class ViewController: UIViewController {
 
+    //MARK: - Propertis
+    
     private lazy var startButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.systemBlue, for: .normal)
@@ -30,13 +32,17 @@ final class ViewController: UIViewController {
     private var apples: [AppleView] = []
     private let source = Source()
     
+    //MARK: - LiveCycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setup()
     }
-       
+    
+    //MARK: - Metods
+    
     @objc private func start() {
         hideStartButton()
         leafs.forEach { $0.removeFromSuperview() }
@@ -54,7 +60,7 @@ final class ViewController: UIViewController {
         view.addSubview(startButton)
         NSLayoutConstraint.activate([
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -180),
+            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 180),
         
         ])
     }
@@ -68,13 +74,11 @@ final class ViewController: UIViewController {
     }
     
     private func showTree() {
-        
-        
         view.addSubview(treeImageView)
         let heightTree = min(view.bounds.width, view.bounds.height) * 0.7
         treeImageView.frame.size = .init(width: heightTree, height: heightTree)
         treeImageView.center.x = view.bounds.midX
-        treeImageView.center.y = view.bounds.midY + 80
+        treeImageView.center.y = view.bounds.midY - 60
         treeImageView.alpha = 0.0
         UIView.animate(withDuration: 1.0) {
             self.treeImageView.alpha = 1.0
@@ -95,5 +99,3 @@ final class ViewController: UIViewController {
         apples.forEach { $0.changeColor() }
     }
 }
-
-
